@@ -1,51 +1,56 @@
-import java.util.Arrays;
+package tictactoe;
+
+import tictactoe.player.Player;
+import tictactoe.util.WinnerChecker;
+
 import java.util.List;
 
 class GameManager {
 
-    private static final String PLAYER_TURN_MESSAGE = "Player %s, you're up. Enter a position like x,y:";
-
+    private static final String PLAYER_TURN_MESSAGE = "%s, you're up. Enter a position like x,y:";
     private static final String ENTER_ANOTHER_POSITION_MESSAGE = " Enter another one.";
 
     private Board board;
     private WinnerChecker winnerChecker;
-    private DefaultPositionReader positionInputReader;
-    private List<Character> players = Arrays.asList('X', 'O');
+
+    private List<Player> players;
     private int turn = 0;
 
-    GameManager(Board board, DefaultPositionReader positionInputReader, WinnerChecker winnerChecker) {
+    GameManager(Board board, List<Player> players, WinnerChecker winnerChecker) {
         this.board = board;
         this.winnerChecker = winnerChecker;
-        this.positionInputReader = positionInputReader;
+        this.players = players;
     }
 
     boolean play() {
-        System.out.println(String.format(PLAYER_TURN_MESSAGE, this.getPlayer()));
+        System.out.println(String.format(PLAYER_TURN_MESSAGE, this.getCurrentPlayer().getName()));
 
         try {
-            String[] split = positionInputReader.getPositions();
+
+            String[] split = this.getCurrentPlayer().getPosition(this.board);
             this.board.mark(
                     Integer.valueOf(split[0]),
                     Integer.valueOf(split[1]),
-                    players.get(this.getPlayerId())
+                    this.getCurrentPlayer().getCharacter()
             );
+
         } catch (RuntimeException e) {
             System.out.println(e.getMessage() + ENTER_ANOTHER_POSITION_MESSAGE);
             System.out.println(board);
             return true;
         }
-        System.out.println(board);
 
+        System.out.println(board);
         makeNextPlayerTurn();
 
         return hasPlayYetToBeDone();
     }
 
-    String getPlayer() {
-        return String.valueOf(getPlayerId() + 1);
+    Player getCurrentPlayer() {
+        return players.get(getPlayerIndex());
     }
 
-    private int getPlayerId() {
+    private int getPlayerIndex() {
         return this.turn % players.size();
     }
 
@@ -56,4 +61,5 @@ class GameManager {
     private void makeNextPlayerTurn() {
         this.turn++;
     }
+
 }

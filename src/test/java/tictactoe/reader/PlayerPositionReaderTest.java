@@ -1,15 +1,19 @@
+package tictactoe.reader;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import tictactoe.Board;
+import tictactoe.util.InputValidator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DefaultPositionReaderTest {
+public class PlayerPositionReaderTest {
 
     @Mock
     private InputValidator inputStringValidator;
@@ -24,9 +28,9 @@ public class DefaultPositionReaderTest {
         Mockito.when(bufferedReader.readLine()).thenReturn(validString);
         Mockito.when(inputStringValidator.isValidString(validString)).thenReturn(true);
 
-        DefaultPositionReader positionInputReader = new DefaultPositionReader(bufferedReader, inputStringValidator);
+        PlayerPositionReader positionInputReader = new PlayerPositionReader(bufferedReader, inputStringValidator);
         String[] positions = {"0", "0"};
-        Assert.assertArrayEquals(positions, positionInputReader.getPositions());
+        Assert.assertArrayEquals(positions, positionInputReader.getPositions(new Board()));
 
     }
 
@@ -36,9 +40,9 @@ public class DefaultPositionReaderTest {
         Mockito.when(bufferedReader.readLine()).thenThrow(IOException.class);
         Mockito.when(inputStringValidator.isValidString("")).thenReturn(true);
 
-        DefaultPositionReader positionInputReader = new DefaultPositionReader(bufferedReader, inputStringValidator);
+        PlayerPositionReader positionInputReader = new PlayerPositionReader(bufferedReader, inputStringValidator);
         String[] positions = {""};
-        Assert.assertArrayEquals(positions, positionInputReader.getPositions());
+        Assert.assertArrayEquals(positions, positionInputReader.getPositions(new Board()));
 
     }
 

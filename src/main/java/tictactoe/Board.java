@@ -1,3 +1,7 @@
+package tictactoe;
+
+import java.util.Arrays;
+
 public class Board {
 
     private static final int MIN_BOARD_SIZE = 3;
@@ -7,11 +11,11 @@ public class Board {
     private static final String INVALID_BOARD_SIZE_MESSAGE = "Invalid board size";
     private Character[][] board;
 
-    Board() {
+    public Board() {
         this(3);
     }
 
-    Board(int size) {
+    public Board(int size) {
         validateBoardSize(size);
         this.board = new Character[size][size];
         init();
@@ -32,15 +36,15 @@ public class Board {
         }
     }
 
-    int getSize() {
+    public int getSize() {
         return this.board.length;
     }
 
-    Character getCell(int x, int y) {
+    public Character getCell(int x, int y) {
         return this.board[x][y];
     }
 
-    void mark(int x, int y, char c) {
+    public void mark(int x, int y, char c) {
         isInTheBoard(x);
         isInTheBoard(y);
         isPositionEmpty(x, y);
@@ -60,12 +64,9 @@ public class Board {
     }
 
     boolean isBoardFull() {
-        for (Character[] aBoard : this.board) {
-            for (int j = 0; j < this.board.length; j++) {
-                if (aBoard[j] == ' ') return false;
-            }
-        }
-        return true;
+        return Arrays.stream(this.board)
+                .flatMap(Arrays::stream)
+                .noneMatch(character -> character == ' ');
     }
 
     @Override

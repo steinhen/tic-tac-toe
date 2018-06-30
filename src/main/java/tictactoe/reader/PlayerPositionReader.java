@@ -1,17 +1,23 @@
+package tictactoe.reader;
+
+import tictactoe.Board;
+import tictactoe.util.InputValidator;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
-class DefaultPositionReader {
+public class PlayerPositionReader implements PositionReader {
 
-    private InputValidator inputStringValidator;
+    private InputValidator validator;
     private BufferedReader bufferedReader;
 
-    DefaultPositionReader(BufferedReader bufferedReader, InputValidator inputStringValidator) {
-        this.inputStringValidator = inputStringValidator;
+    public PlayerPositionReader(BufferedReader bufferedReader, InputValidator validator) {
+        this.validator = validator;
         this.bufferedReader = bufferedReader;
     }
 
-    String[] getPositions() {
+    @Override
+    public String[] getPositions(final Board board) {
         return readPosition().split(",");
     }
 
@@ -19,7 +25,7 @@ class DefaultPositionReader {
         String s;
         do {
             s = readLine();
-        } while (!inputStringValidator.isValidString(s));
+        } while (!validator.isValidString(s));
         return s;
     }
 
