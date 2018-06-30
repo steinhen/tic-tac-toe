@@ -6,9 +6,11 @@ public class Board {
 
     private static final int MIN_BOARD_SIZE = 3;
     private static final int MAX_BOARD_SIZE = 10;
+
     private static final String CANNOT_MARK_THIS_POSITION_MESSAGE = "Cannot mark this position.";
     private static final String INVALID_POSITION_MESSAGE = "Invalid Position.";
     private static final String INVALID_BOARD_SIZE_MESSAGE = "Invalid board size";
+
     private Character[][] board;
 
     public Board() {

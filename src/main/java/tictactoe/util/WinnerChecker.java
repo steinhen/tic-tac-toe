@@ -1,7 +1,9 @@
 package tictactoe.util;
 
+import org.springframework.stereotype.Service;
 import tictactoe.Board;
 
+@Service
 public class WinnerChecker {
 
     private Board board;

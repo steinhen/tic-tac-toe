@@ -9,7 +9,7 @@ import java.io.IOException;
 public class PlayerFactoryTest {
 
     @Test
-    public void getAllPlayers() throws IOException {
+    public void getAllPlayersShouldReturn3Players() throws IOException {
         Assert.assertEquals(
                 3,
                 new PlayerFactory(new ConfigurationLoader()).getAllPlayers().size()

@@ -1,25 +1,32 @@
 package tictactoe.player;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tictactoe.reader.ComputerPositionReader;
 import tictactoe.reader.PlayerPositionReader;
 import tictactoe.util.ConfigurationLoader;
-import tictactoe.util.InputValidator;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class PlayerFactory {
 
     private static final String PLAYER_1 = "Player 1";
     private static final String PLAYER_2 = "Player 2";
     private static final String COMPUTER = "Computer";
 
+    @Autowired
+    private ComputerPositionReader computerPositionReader;
+
+    @Autowired
+    private PlayerPositionReader playerPositionReader;
+
     private ConfigurationLoader configurationLoader;
 
-    public PlayerFactory(ConfigurationLoader configurationLoader) {
+    @Autowired
+    PlayerFactory(ConfigurationLoader configurationLoader) {
         this.configurationLoader = configurationLoader;
     }
 
@@ -29,22 +36,17 @@ public class PlayerFactory {
                 new Player(
                         COMPUTER,
                         configurationLoader.getComputerCharacter(),
-                        new ComputerPositionReader()),
+                        computerPositionReader
+                ),
                 new Player(
                         PLAYER_1,
                         configurationLoader.getPlayer1Character(),
-                        new PlayerPositionReader(
-                                new BufferedReader(new InputStreamReader(System.in)),
-                                new InputValidator()
-                        )
+                        playerPositionReader
                 ),
                 new Player(
                         PLAYER_2,
                         configurationLoader.getPlayer2Character(),
-                        new PlayerPositionReader(
-                                new BufferedReader(new InputStreamReader(System.in)),
-                                new InputValidator()
-                        )
+                        playerPositionReader
                 )
         );
 

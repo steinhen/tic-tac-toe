@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 public class ComputerPositionReaderTest {
 
     @Test
-    public void getPosition() {
+    public void getPosition_shouldReturnArrayWith2Ints() {
         ComputerPositionReader computerPositionReader = new ComputerPositionReader();
         assertEquals(2, computerPositionReader.getPosition(new Board()).length);
     }

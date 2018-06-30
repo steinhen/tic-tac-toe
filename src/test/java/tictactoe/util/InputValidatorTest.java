@@ -14,6 +14,7 @@ public class InputValidatorTest {
         assertTrue(inputStringValidator.isValidString("10,10"));
         assertFalse(inputStringValidator.isValidString("-1,-1"));
         assertFalse(inputStringValidator.isValidString("aaa"));
-        assertFalse(inputStringValidator.isValidString("10, 10"));
+        assertFalse(inputStringValidator.isValidString("10, 10a"));
+        assertFalse(inputStringValidator.isValidString("a10,10"));
     }
 }

@@ -1,6 +1,5 @@
 package tictactoe.reader;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -12,8 +11,12 @@ import tictactoe.util.InputValidator;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import static org.junit.Assert.assertArrayEquals;
+
 @RunWith(MockitoJUnitRunner.class)
 public class PlayerPositionReaderTest {
+
+    private static final String VALID_STRING = "0,0";
 
     @Mock
     private InputValidator inputStringValidator;
@@ -23,25 +26,19 @@ public class PlayerPositionReaderTest {
 
     @Test
     public void getPosition_shouldReturnValidValue() throws Exception {
-
-        String validString = "0,0";
-        Mockito.when(bufferedReader.readLine()).thenReturn(validString);
-        Mockito.when(inputStringValidator.isValidString(validString)).thenReturn(true);
+        Mockito.when(bufferedReader.readLine()).thenReturn(VALID_STRING);
+        Mockito.when(inputStringValidator.isValidString(VALID_STRING)).thenReturn(true);
 
         PlayerPositionReader positionInputReader = new PlayerPositionReader(bufferedReader, inputStringValidator);
-        int[] positions = {0, 0};
-        Assert.assertArrayEquals(positions, positionInputReader.getPosition(new Board()));
-
+        assertArrayEquals(new int[]{0, 0}, positionInputReader.getPosition(new Board()));
     }
 
     @Test(expected = RuntimeException.class)
     public void getPosition_ThrowsIOException() throws Exception {
-
         Mockito.when(bufferedReader.readLine()).thenThrow(IOException.class);
 
         PlayerPositionReader positionInputReader = new PlayerPositionReader(bufferedReader, inputStringValidator);
         positionInputReader.getPosition(new Board());
-
     }
 
 }

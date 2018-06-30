@@ -1,9 +1,11 @@
 package tictactoe.reader;
 
+import org.springframework.stereotype.Component;
 import tictactoe.Board;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+@Component
 public class ComputerPositionReader implements PositionReader {
 
     @Override

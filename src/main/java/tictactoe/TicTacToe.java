@@ -1,29 +1,26 @@
 package tictactoe;
 
-import tictactoe.player.PlayerFactory;
-import tictactoe.util.ConfigurationLoader;
-import tictactoe.util.WinnerChecker;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.io.IOException;
+@SpringBootApplication
+public class TicTacToe implements CommandLineRunner {
 
-public class TicTacToe {
+    @Autowired
+    private GameManager gameManager;
 
     public static void main(String[] args) {
+        SpringApplication springApplication = new SpringApplication(TicTacToe.class);
+        springApplication.setBannerMode(Banner.Mode.OFF);
 
-        try {
-            ConfigurationLoader configurationLoader = new ConfigurationLoader();
-
-            GameManager gameManager = new GameManager(
-                    new Board(configurationLoader.getBoardSize()),
-                    new PlayerFactory(configurationLoader).getAllPlayers(),
-                    new WinnerChecker()
-            );
-
-            while (gameManager.play()) ;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        springApplication.run(args);
     }
 
+    @Override
+    public void run(String... args) {
+        while (gameManager.play()) ;
+    }
 }

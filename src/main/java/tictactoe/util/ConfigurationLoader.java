@@ -1,12 +1,15 @@
 package tictactoe.util;
 
+import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@Service
 public class ConfigurationLoader {
 
-    private static final String PROPERTIES_FILE_NAME = "config.properties";
+    private static final String PROPERTIES_FILE_NAME = "application.properties";
     private final Properties properties;
 
     public ConfigurationLoader() throws IOException {
