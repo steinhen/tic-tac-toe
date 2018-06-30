@@ -23,14 +23,15 @@ class GameManager {
     }
 
     boolean play() {
+
         System.out.println(String.format(PLAYER_TURN_MESSAGE, this.getCurrentPlayer().getName()));
 
         try {
 
-            String[] split = this.getCurrentPlayer().getPosition(this.board);
+            int[] position = this.getCurrentPlayer().getPosition(this.board);
             this.board.mark(
-                    Integer.valueOf(split[0]),
-                    Integer.valueOf(split[1]),
+                    position[0],
+                    position[1],
                     this.getCurrentPlayer().getCharacter()
             );
 

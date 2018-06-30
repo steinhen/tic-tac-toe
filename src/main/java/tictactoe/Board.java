@@ -72,10 +72,10 @@ public class Board {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Board:\n");
-        for (Character[] characters : board) {
+        for (int y = 0; y < board.length; y++) {
             sb.append('|');
-            for (Character character : characters) {
-                sb.append(String.valueOf(character)).append('|');
+            for (int x = 0; x < board.length; x++) {
+                sb.append(board[x][y]).append('|');
             }
             sb.append('\n');
         }

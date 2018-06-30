@@ -1,5 +1,6 @@
 package tictactoe.player;
 
+import tictactoe.reader.ComputerPositionReader;
 import tictactoe.reader.PlayerPositionReader;
 import tictactoe.util.ConfigurationLoader;
 import tictactoe.util.InputValidator;
@@ -25,7 +26,10 @@ public class PlayerFactory {
     public List<Player> getAllPlayers() {
 
         List<Player> players = Arrays.asList(
-                //new tictactoe.player.Player(COMPUTER, configurationLoader.getComputerCharacter()),
+                new Player(
+                        COMPUTER,
+                        configurationLoader.getComputerCharacter(),
+                        new ComputerPositionReader()),
                 new Player(
                         PLAYER_1,
                         configurationLoader.getPlayer1Character(),

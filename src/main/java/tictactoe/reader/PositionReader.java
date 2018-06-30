@@ -2,6 +2,6 @@ package tictactoe.reader;
 
 import tictactoe.Board;
 
-interface PositionReader {
-    String[] getPositions(Board board);
+public interface PositionReader {
+    int[] getPosition(Board board) throws RuntimeException;
 }

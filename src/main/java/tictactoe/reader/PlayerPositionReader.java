@@ -8,6 +8,8 @@ import java.io.IOException;
 
 public class PlayerPositionReader implements PositionReader {
 
+    private static final String COULD_NOT_READ_FROM_POSITION_MESSAGE = "Couldn't read from position.";
+
     private InputValidator validator;
     private BufferedReader bufferedReader;
 
@@ -17,11 +19,12 @@ public class PlayerPositionReader implements PositionReader {
     }
 
     @Override
-    public String[] getPositions(final Board board) {
-        return readPosition().split(",");
+    public int[] getPosition(final Board board) throws RuntimeException {
+        String[] split = readValidString().split(",");
+        return new int[]{Integer.valueOf(split[0]), Integer.valueOf(split[1])};
     }
 
-    private String readPosition() {
+    private String readValidString() throws RuntimeException {
         String s;
         do {
             s = readLine();
@@ -29,13 +32,11 @@ public class PlayerPositionReader implements PositionReader {
         return s;
     }
 
-    private String readLine() {
-        String s;
+    private String readLine() throws RuntimeException {
         try {
-            s = bufferedReader.readLine();
+            return bufferedReader.readLine();
         } catch (IOException e) {
-            s = "";
+            throw new RuntimeException(COULD_NOT_READ_FROM_POSITION_MESSAGE);
         }
-        return s;
     }
 }

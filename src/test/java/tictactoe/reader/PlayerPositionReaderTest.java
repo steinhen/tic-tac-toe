@@ -29,20 +29,18 @@ public class PlayerPositionReaderTest {
         Mockito.when(inputStringValidator.isValidString(validString)).thenReturn(true);
 
         PlayerPositionReader positionInputReader = new PlayerPositionReader(bufferedReader, inputStringValidator);
-        String[] positions = {"0", "0"};
-        Assert.assertArrayEquals(positions, positionInputReader.getPositions(new Board()));
+        int[] positions = {0, 0};
+        Assert.assertArrayEquals(positions, positionInputReader.getPosition(new Board()));
 
     }
 
-    @Test
-    public void getPosition_handlesExceptionWhenReadingInput() throws Exception {
+    @Test(expected = RuntimeException.class)
+    public void getPosition_ThrowsIOException() throws Exception {
 
         Mockito.when(bufferedReader.readLine()).thenThrow(IOException.class);
-        Mockito.when(inputStringValidator.isValidString("")).thenReturn(true);
 
         PlayerPositionReader positionInputReader = new PlayerPositionReader(bufferedReader, inputStringValidator);
-        String[] positions = {""};
-        Assert.assertArrayEquals(positions, positionInputReader.getPositions(new Board()));
+        positionInputReader.getPosition(new Board());
 
     }
 

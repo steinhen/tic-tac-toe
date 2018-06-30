@@ -19,9 +19,9 @@ import static org.junit.Assert.assertTrue;
 @RunWith(MockitoJUnitRunner.class)
 public class GameManagerTest {
 
-    private static final char STUB_PLAYER_CHAR = 'S';
+    private static final char DOUBLE_PLAYER_CHAR = 'S';
 
-    private List<Player> mockedPlayers = Collections.singletonList(new StubPlayer());
+    private List<Player> mockedPlayers = Collections.singletonList(new PlayerDouble());
 
     @Mock
     private Board board;
@@ -63,7 +63,7 @@ public class GameManagerTest {
 
         GameManager gameManager = new GameManager(board, mockedPlayers, winnerChecker);
 
-        Mockito.doThrow(RuntimeException.class).when(board).mark(0, 0, STUB_PLAYER_CHAR);
+        Mockito.doThrow(RuntimeException.class).when(board).mark(0, 0, DOUBLE_PLAYER_CHAR);
 
         assertTrue(gameManager.play());
 
@@ -89,7 +89,7 @@ public class GameManagerTest {
 
         GameManager gameManager = new GameManager(board, mockedPlayers, winnerChecker);
 
-        Mockito.doThrow(RuntimeException.class).when(board).mark(0, 0, STUB_PLAYER_CHAR);
+        Mockito.doThrow(RuntimeException.class).when(board).mark(0, 0, DOUBLE_PLAYER_CHAR);
 
         String previousPlayer = gameManager.getCurrentPlayer().getName();
         gameManager.play();
@@ -98,15 +98,15 @@ public class GameManagerTest {
 
     }
 
-    class StubPlayer extends Player {
+    class PlayerDouble extends Player {
 
-        StubPlayer() {
-            super("Stub", STUB_PLAYER_CHAR, null);
+        PlayerDouble() {
+            super("Stub", DOUBLE_PLAYER_CHAR, null);
         }
 
         @Override
-        public String[] getPosition(Board board) {
-            return new String[]{"0", "0"};
+        public int[] getPosition(Board board) {
+            return new int[]{0, 0};
         }
     }
 

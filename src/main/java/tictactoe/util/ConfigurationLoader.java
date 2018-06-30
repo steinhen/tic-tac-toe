@@ -1,6 +1,5 @@
 package tictactoe.util;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -13,11 +12,7 @@ public class ConfigurationLoader {
     public ConfigurationLoader() throws IOException {
         this.properties = new Properties();
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE_NAME);
-        if (inputStream != null) {
-            this.properties.load(inputStream);
-        } else {
-            throw new FileNotFoundException("Configuration file [" + PROPERTIES_FILE_NAME + "] not found.");
-        }
+        this.properties.load(inputStream);
         inputStream.close();
     }
 
@@ -29,7 +24,7 @@ public class ConfigurationLoader {
         return properties.getProperty("player2Character").charAt(0);
     }
 
-    Character getComputerCharacter() {
+    public Character getComputerCharacter() {
         return properties.getProperty("computerCharacter").charAt(0);
     }
 

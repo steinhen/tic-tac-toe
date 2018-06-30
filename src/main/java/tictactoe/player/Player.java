@@ -1,22 +1,22 @@
 package tictactoe.player;
 
 import tictactoe.Board;
-import tictactoe.reader.PlayerPositionReader;
+import tictactoe.reader.PositionReader;
 
 public class Player {
 
     private Character character;
     private String name;
-    private PlayerPositionReader positionInputReader;
+    private PositionReader positionInputReader;
 
-    protected Player(String name, Character character, PlayerPositionReader positionInputReader) {
+    protected Player(String name, Character character, PositionReader positionInputReader) {
         this.name = name;
         this.character = character;
         this.positionInputReader = positionInputReader;
     }
 
-    public String[] getPosition(final Board board) {
-        return this.positionInputReader.getPositions(board);
+    public int[] getPosition(final Board board) throws RuntimeException {
+        return this.positionInputReader.getPosition(board);
     }
 
     public Character getCharacter() {

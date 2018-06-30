@@ -23,8 +23,8 @@ public class PlayerTest {
     @Test
     public void getPosition() {
         Board board = new Board();
-        String[] position = {"0", "0"};
-        Mockito.when(positionInputReader.getPositions(board)).thenReturn(position);
+        int[] position = {0, 0};
+        Mockito.when(positionInputReader.getPosition(board)).thenReturn(position);
         Player player = new Player(NAME, CHAR, positionInputReader);
         assertArrayEquals(position, player.getPosition(board));
     }
