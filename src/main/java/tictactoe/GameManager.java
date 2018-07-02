@@ -38,7 +38,7 @@ class GameManager {
      * still a play to be done - essentially by checking for a winner or available places in the board.
      *
      * @return True in case there is still a play to be done. False, otherwise (in case some one is a winner or the
-     * board is full)ó.
+     * board is full).
      */
     boolean play() {
 

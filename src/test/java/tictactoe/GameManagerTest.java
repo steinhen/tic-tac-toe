@@ -93,7 +93,7 @@ public class GameManagerTest {
     }
 
     @Test
-    public void play_shouldChangePlayer_afterFailPlay() {
+    public void play_shouldNotChangePlayer_afterFailPlay() {
         when(playerFactory.getAllPlayers()).thenReturn(players);
 
         GameManager gameManager = new GameManager(board, playerFactory, winnerChecker);

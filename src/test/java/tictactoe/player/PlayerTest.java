@@ -30,13 +30,13 @@ public class PlayerTest {
     }
 
     @Test
-    public void getCharacter() {
+    public void getName() {
         Player player = new Player(NAME, CHAR, null);
         assertEquals(NAME, player.getName());
     }
 
     @Test
-    public void getName() {
+    public void getCharacter() {
         Player player = new Player(NAME, CHAR, null);
         assertEquals(CHAR, player.getCharacter());
     }
