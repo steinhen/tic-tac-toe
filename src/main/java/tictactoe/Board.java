@@ -1,23 +1,33 @@
 package tictactoe;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import tictactoe.exception.InvalidBoardPositionException;
+import tictactoe.exception.InvalidBoardSizeException;
+import tictactoe.exception.UnavailableBoardPositionException;
+
 import java.util.Arrays;
 
+/**
+ * This class represents the abstraction of the board. It encapsulates the board matrix with the rules and methods to
+ * handle and interact with it.
+ */
+@Component
 public class Board {
 
     private static final int MIN_BOARD_SIZE = 3;
     private static final int MAX_BOARD_SIZE = 10;
 
-    private static final String CANNOT_MARK_THIS_POSITION_MESSAGE = "Cannot mark this position.";
-    private static final String INVALID_POSITION_MESSAGE = "Invalid Position.";
-    private static final String INVALID_BOARD_SIZE_MESSAGE = "Invalid board size";
-
     private Character[][] board;
 
-    public Board() {
-        this(3);
-    }
-
-    public Board(int size) {
+    /**
+     * Constructor that enforces the board size is within the range of board size allowed.
+     *
+     * @param size board size.
+     */
+    @Autowired
+    public Board(@Value("${boardSize}") int size) {
         validateBoardSize(size);
         this.board = new Character[size][size];
         init();
@@ -25,7 +35,7 @@ public class Board {
 
     private void validateBoardSize(int size) {
         if (MIN_BOARD_SIZE > size || size > MAX_BOARD_SIZE) {
-            throw new RuntimeException(INVALID_BOARD_SIZE_MESSAGE);
+            throw new InvalidBoardSizeException();
         }
     }
 
@@ -38,6 +48,11 @@ public class Board {
         }
     }
 
+    /**
+     * Retrieves the board size.
+     *
+     * @return board size.
+     */
     public int getSize() {
         return this.board.length;
     }
@@ -46,22 +61,29 @@ public class Board {
         return this.board[x][y];
     }
 
+    /**
+     * Places the given char c on the board place represented by the x and y parameters .
+     *
+     * @param x horizontal index.
+     * @param y vertical index.
+     * @param c character to be paced.
+     */
     public void mark(int x, int y, char c) {
-        isInTheBoard(x);
-        isInTheBoard(y);
-        isPositionEmpty(x, y);
+        checkValidPosition(x);
+        checkValidPosition(y);
+        checkPositionAvailability(x, y);
         board[x][y] = c;
     }
 
-    private void isPositionEmpty(int x, int y) {
+    private void checkPositionAvailability(int x, int y) {
         if (board[x][y] != ' ') {
-            throw new RuntimeException(CANNOT_MARK_THIS_POSITION_MESSAGE);
+            throw new UnavailableBoardPositionException();
         }
     }
 
-    private void isInTheBoard(int position) {
+    private void checkValidPosition(int position) {
         if (position < 0 || position >= board.length) {
-            throw new RuntimeException(INVALID_POSITION_MESSAGE);
+            throw new InvalidBoardPositionException();
         }
     }
 

@@ -1,15 +1,18 @@
 package tictactoe.player;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tictactoe.reader.ComputerPositionReader;
 import tictactoe.reader.PlayerPositionReader;
-import tictactoe.util.ConfigurationLoader;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Factory class to get the players for the TicTacToe game.
+ */
 @Service
 public class PlayerFactory {
 
@@ -23,29 +26,36 @@ public class PlayerFactory {
     @Autowired
     private PlayerPositionReader playerPositionReader;
 
-    private ConfigurationLoader configurationLoader;
+    @Value("${player1Character}")
+    private Character player1Character;
 
-    @Autowired
-    PlayerFactory(ConfigurationLoader configurationLoader) {
-        this.configurationLoader = configurationLoader;
-    }
+    @Value("${player2Character}")
+    private Character player2Character;
 
+    @Value("${computerCharacter}")
+    private Character computerCharacter;
+
+    /**
+     * Gets the shuffled list of all players.
+     *
+     * @return List of players.
+     */
     public List<Player> getAllPlayers() {
 
         List<Player> players = Arrays.asList(
                 new Player(
                         COMPUTER,
-                        configurationLoader.getComputerCharacter(),
+                        computerCharacter,
                         computerPositionReader
                 ),
                 new Player(
                         PLAYER_1,
-                        configurationLoader.getPlayer1Character(),
+                        player1Character,
                         playerPositionReader
                 ),
                 new Player(
                         PLAYER_2,
-                        configurationLoader.getPlayer2Character(),
+                        player2Character,
                         playerPositionReader
                 )
         );

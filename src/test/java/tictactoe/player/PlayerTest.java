@@ -21,8 +21,8 @@ public class PlayerTest {
     private PlayerPositionReader positionInputReader;
 
     @Test
-    public void getPosition() {
-        Board board = new Board();
+    public void getPosition() throws Exception {
+        Board board = new Board(3);
         int[] position = {0, 0};
         Mockito.when(positionInputReader.getPosition(board)).thenReturn(position);
         Player player = new Player(NAME, CHAR, positionInputReader);

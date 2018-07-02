@@ -6,6 +6,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import tictactoe.Board;
+import tictactoe.exception.UnableToReadPositionException;
 import tictactoe.util.InputValidator;
 
 import java.io.BufferedReader;
@@ -30,15 +31,15 @@ public class PlayerPositionReaderTest {
         Mockito.when(inputStringValidator.isValidString(VALID_STRING)).thenReturn(true);
 
         PlayerPositionReader positionInputReader = new PlayerPositionReader(bufferedReader, inputStringValidator);
-        assertArrayEquals(new int[]{0, 0}, positionInputReader.getPosition(new Board()));
+        assertArrayEquals(new int[]{0, 0}, positionInputReader.getPosition(new Board(3)));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = UnableToReadPositionException.class)
     public void getPosition_ThrowsIOException() throws Exception {
         Mockito.when(bufferedReader.readLine()).thenThrow(IOException.class);
 
         PlayerPositionReader positionInputReader = new PlayerPositionReader(bufferedReader, inputStringValidator);
-        positionInputReader.getPosition(new Board());
+        positionInputReader.getPosition(new Board(3));
     }
 
 }

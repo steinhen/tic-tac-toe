@@ -6,6 +6,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Tic Tac Toe game that runs in the command line. This is a enhanced version of the original game, having an extra
+ * player and a configurable board size. Game runs while there is still a play to be done.
+ */
 @SpringBootApplication
 public class TicTacToe implements CommandLineRunner {
 

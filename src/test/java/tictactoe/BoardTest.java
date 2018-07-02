@@ -9,28 +9,29 @@ import static org.junit.Assert.fail;
 public class BoardTest {
 
     private static final char CHAR = 'X';
+    private static final int SIZE = 3;
 
     @Test(expected = RuntimeException.class)
     public void mark_shouldThrowException_whenXIsLowerThan0() {
-        Board board = new Board();
+        Board board = new Board(SIZE);
         board.mark(-1, 0, CHAR);
     }
 
     @Test(expected = RuntimeException.class)
     public void mark_shouldThrowException_whenXIsGreaterThanBoardSize() {
-        Board board = new Board();
+        Board board = new Board(SIZE);
         board.mark(4, 0, CHAR);
     }
 
     @Test(expected = RuntimeException.class)
     public void mark_shouldThrowException_whenYIsLowerThan0() {
-        Board board = new Board();
+        Board board = new Board(SIZE);
         board.mark(0, -1, CHAR);
     }
 
     @Test(expected = RuntimeException.class)
     public void mark_shouldThrowException_whenYIsGreaterThanBoardSize() {
-        Board board = new Board();
+        Board board = new Board(SIZE);
         board.mark(0, 4, CHAR);
     }
 
@@ -38,7 +39,7 @@ public class BoardTest {
     public void mark_shouldNotThrowException_whenPositionIsWithinTheRange() {
         Board board;
         try {
-            board = new Board();
+            board = new Board(SIZE);
             board.mark(0, 0, CHAR);
         } catch (Exception e) {
             fail();
@@ -47,13 +48,13 @@ public class BoardTest {
 
     @Test(expected = RuntimeException.class)
     public void mark_shouldThrowException_whenMarkingPositionAlreadyTaken() {
-        Board board = new Board();
+        Board board = new Board(SIZE);
         board.mark(0, 0, CHAR);
         board.mark(0, 0, CHAR);
     }
 
     @Test
-    public void constructor_shouldAllowPassBoardSize() {
+    public void constructorWithBoardSizeParameter() {
         Board board;
         try {
             board = new Board(10);
@@ -69,13 +70,13 @@ public class BoardTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void constructor_shouldThrowException_whenBoardSizeIsSmallerThan3() {
+    public void constructor_shouldThrowException_whenBoardSizeIsLessThan3() {
         new Board(2);
     }
 
     @Test
     public void isBoardFull_shouldReturnTrue_whenThereIsNoMoreEmptyPosition() {
-        Board board = new Board();
+        Board board = new Board(SIZE);
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
                 board.mark(i, j, CHAR);
@@ -86,7 +87,7 @@ public class BoardTest {
 
     @Test
     public void isBoardFull_shouldReturnFalse_whenThereIsEmptyPosition() {
-        Board board = new Board();
+        Board board = new Board(SIZE);
         board.mark(0, 0, CHAR);
         assertFalse(board.isBoardFull());
     }
