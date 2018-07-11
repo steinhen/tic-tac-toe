@@ -1,13 +1,15 @@
 package tictactoe.util;
 
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import tictactoe.Board;
 
 /**
  * This class has the implementation of the rules for finding the game winner. It has the original rules: row, column,
  * or any of the diagonals filled with same character makes a winner.
  */
-@Service
+@Component
+@Profile("defaultRules")
 public class WinnerChecker {
 
     private Board board;
